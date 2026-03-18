@@ -4,8 +4,9 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "dev": "node --watch --env-file=.env server.js",
-        "start": "node server.js"
+        "dev": "nodemon",
+        "build": "tsc",
+        "start": "node dist/index.js"
     },
     "keywords": [],
     "author": "",
@@ -16,6 +17,8 @@
     },
     "devDependencies": {
         "@types/node": "^25.5.0",
+        "nodemon": "^3.1.14",
+        "tsx": "^4.21.0",
         "typescript": "^5.9.3"
     }
 }
