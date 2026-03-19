@@ -9,5 +9,6 @@ app.get('/', (_req, res) => {
 
 const port = process.env.PORT;
 app.listen(port, () => {
+    // eslint-disable-next-line no-console
     console.log(`Server is running on port ${port}`);
 });

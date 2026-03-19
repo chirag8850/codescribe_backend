@@ -1,37 +1,37 @@
 {
-	"compilerOptions": {
-		/* Language & Environment */
-		"target": "ES2022",
-		"module": "NodeNext",
-		"moduleResolution": "NodeNext",
-		"lib": ["ES2022"],
+    "compilerOptions": {
+        /* Language & Environment */
+        "target": "ES2022",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "lib": ["ES2022"],
 
-		/* Output */
-		"outDir": "dist",
-		"rootDir": "src",
-		"sourceMap": true,
+        /* Output */
+        "outDir": "dist",
+        "rootDir": "src",
+        "sourceMap": true,
 
-		/* Strict Type Checking */
-		"strict": true,
-		"noUncheckedIndexedAccess": true,
-		"noImplicitOverride": true,
+        /* Strict Type Checking */
+        "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "noImplicitOverride": true,
 
-		/* Code Quality */
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"noFallthroughCasesInSwitch": true,
-		"forceConsistentCasingInFileNames": true,
+        /* Code Quality */
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
+        "forceConsistentCasingInFileNames": true,
 
-		/* Interop */
-		"esModuleInterop": true,
-		"skipLibCheck": true,
-		"resolveJsonModule": true,
-		"verbatimModuleSyntax": true,
+        /* Interop */
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+        "verbatimModuleSyntax": true,
 
-		"paths": {
-			"@/*": ["./src/*"]
-		}
-	},
-	"include": ["src/**/*", "eslint.config.mjs"],
-	"exclude": ["node_modules", "dist"]
+        "paths": {
+            "@/*": ["./src/*"]
+        }
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "dist"]
 }
