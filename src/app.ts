@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import compression from 'compression';
 import { config } from './shared/config/config.js';
+import routes from './routes/index.js';
 
 const app: Application = express();
 
@@ -23,5 +24,8 @@ app.use(express.urlencoded({ extended: true }));
 
 //performance
 app.use(compression());
+
+// routes
+app.use('/api/v1', routes);
 
 export default app;
