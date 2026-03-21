@@ -6,6 +6,7 @@ import compression from 'compression';
 import { config } from './shared/config/config.js';
 import routes from './routes/index.js';
 import { globalErrorHandler } from './shared/middlewares/globalError.js';
+import { notFoundHandler } from './shared/middlewares/error404.js';
 
 const app: Application = express();
 
@@ -28,6 +29,9 @@ app.use(compression());
 
 // error handler
 app.use(globalErrorHandler);
+
+// 404 handler
+app.use(notFoundHandler);
 
 // routes
 app.use('/api/v1', routes);
