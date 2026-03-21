@@ -5,6 +5,7 @@ import cors from 'cors';
 import compression from 'compression';
 import { config } from './shared/config/config.js';
 import routes from './routes/index.js';
+import { globalErrorHandler } from './shared/middlewares/globalError.js';
 
 const app: Application = express();
 
@@ -24,6 +25,9 @@ app.use(express.urlencoded({ extended: true }));
 
 //performance
 app.use(compression());
+
+// error handler
+app.use(globalErrorHandler);
 
 // routes
 app.use('/api/v1', routes);
