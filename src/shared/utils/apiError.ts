@@ -1,5 +1,5 @@
-import type { ApiErrorOptions } from '../types/response.type.js';
-import type { HttpStatus } from '../constants/httpStatus.js';
+import type { ApiErrorOptions } from '@/shared/types/response.type.js';
+import type { HttpStatus } from '@/shared/constants/httpStatus.js';
 
 export class ApiError extends Error {
     public readonly statusCode: HttpStatus;

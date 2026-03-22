@@ -1,5 +1,5 @@
 import type { Response } from 'express';
-import type { SendResponseOptions, ApiResponse } from '../types/response.type.js';
+import type { SendResponseOptions, ApiResponse } from '@/shared/types/response.type.js';
 
 const sendResponse = <T = null>(
     success: boolean,

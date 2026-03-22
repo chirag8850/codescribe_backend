@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import type { Request, Response } from 'express';
-import { authRouter } from '../features/auth/index.js';
-import { sendSuccess } from '../shared/utils/apiResponse.js';
-import { HTTP_STATUS } from '../shared/constants/httpStatus.js';
+import { authRouter } from '@/features/auth/index.js';
+import { sendSuccess } from '@/shared/utils/apiResponse.js';
+import { HTTP_STATUS } from '@/shared/constants/httpStatus.js';
 
 const router = Router();
 

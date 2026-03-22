@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { login, signup } from './controllers/auth.controller.js';
-import { asyncHandler } from '../../shared/utils/asyncHandler.js';
+import { asyncHandler } from '@/shared/utils/asyncHandler.js';
 
 const authRouter = Router();
 
