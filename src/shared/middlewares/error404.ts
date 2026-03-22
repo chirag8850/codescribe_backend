@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express';
-import { HTTP_STATUS } from '../constants/httpStatus.js';
-import { ApiError } from '../utils/apiError.js';
+import { HTTP_STATUS } from '@/shared/constants/httpStatus.js';
+import { ApiError } from '@/shared/utils/apiError.js';
 
 export const notFoundHandler = (req: Request, _res: Response, next: NextFunction) => {
     next(

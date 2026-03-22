@@ -1,8 +1,8 @@
 import type { NextFunction, Request, Response } from 'express';
-import { HTTP_STATUS } from '../constants/httpStatus.js';
-import { ApiError } from '../utils/apiError.js';
-import { config } from '../config/config.js';
-import type { ApiErrorResponse } from '../types/response.type.js';
+import { HTTP_STATUS } from '@/shared/constants/httpStatus.js';
+import { ApiError } from '@/shared/utils/apiError.js';
+import { config } from '@/shared/config/config.js';
+import type { ApiErrorResponse } from '@/shared/types/response.type.js';
 
 export const globalErrorHandler = (
     err: Error,

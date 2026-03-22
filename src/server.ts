@@ -1,5 +1,5 @@
-import app from './app.js';
-import { config } from './shared/config/config.js';
+import app from '@/app.js';
+import { config } from '@/shared/config/config.js';
 
 const PORT = config.server.port;
 
