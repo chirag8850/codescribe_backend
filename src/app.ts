@@ -14,26 +14,26 @@ const app: Application = express();
 app.use(helmet());
 app.use(
     cors({
-        origin: config.server.serverUrl,
+        origin: config.server.corsOrigin,
         credentials: true,
-        methods: ['GET', 'POST'],
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     }),
 );
 
 // Body parsing
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '16kb' }));
+app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 
-//performance
+// Performance
 app.use(compression());
 
-// routes
+// Routes
 app.use('/api/v1', routes);
 
 // 404 handler
 app.use(notFoundHandler);
 
-// error handler
+// Error handler
 app.use(globalErrorHandler);
 
 export default app;
