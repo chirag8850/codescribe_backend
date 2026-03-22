@@ -27,13 +27,13 @@ app.use(express.urlencoded({ extended: true }));
 //performance
 app.use(compression());
 
-// error handler
-app.use(globalErrorHandler);
+// routes
+app.use('/api/v1', routes);
 
 // 404 handler
 app.use(notFoundHandler);
 
-// routes
-app.use('/api/v1', routes);
+// error handler
+app.use(globalErrorHandler);
 
 export default app;
