@@ -8,6 +8,7 @@ const envSchema = z.object({
     NODE_ENV: z.enum(['development', 'production']),
     SERVER_URL: z.string(),
     CORS_ORIGIN: z.string(),
+    MONGO_URI: z.string(),
 });
 
 const parsed = envSchema.safeParse(process.env);
@@ -28,5 +29,8 @@ export const config = {
         corsOrigin: env.CORS_ORIGIN,
         isDev: env.NODE_ENV === 'development',
         isProd: env.NODE_ENV === 'production',
+    },
+    db: {
+        mongoUri: env.MONGO_URI,
     },
 } as const;
