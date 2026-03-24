@@ -3,10 +3,11 @@ import { HTTP_STATUS } from '@/shared/constants/httpStatus.js';
 import { ApiError } from '@/shared/utils/apiError.js';
 import { config } from '@/shared/config/config.js';
 import type { ApiErrorResponse } from '@/shared/types/response.type.js';
+import logger from '@/shared/utils/logger.js';
 
 export const globalErrorHandler = (
     err: Error,
-    _req: Request,
+    req: Request,
     res: Response,
     _next: NextFunction,
 ): void => {
@@ -24,8 +25,12 @@ export const globalErrorHandler = (
     };
 
     if (!(err instanceof ApiError)) {
-        // eslint-disable-next-line no-console
-        console.error('Unexpected error:', err);
+        logger.error('Unexpected error', {
+            stack: err.stack,
+            method: req.method,
+            url: req.originalUrl,
+            body: req.body as unknown,
+        });
     }
 
     res.status(statusCode).json(response);
