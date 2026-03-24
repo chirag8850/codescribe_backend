@@ -3,10 +3,12 @@ import type { Application } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import compression from 'compression';
+import morgan from 'morgan';
 import { config } from '@/shared/config/config.js';
 import routes from '@/routes/index.js';
 import { globalErrorHandler } from '@/shared/middlewares/globalError.js';
 import { notFoundHandler } from '@/shared/middlewares/error404.js';
+import logger from '@/shared/utils/logger.js';
 
 const app: Application = express();
 
@@ -26,6 +28,12 @@ app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 
 // Performance
 app.use(compression());
+
+app.use(
+    morgan(':method :url :status :res[content-length]b - :response-time ms', {
+        stream: { write: (message) => logger.http(message.trimEnd()) },
+    }),
+);
 
 // Routes
 app.use('/api/v1', routes);
