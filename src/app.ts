@@ -3,8 +3,12 @@ import type { Application } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import compression from 'compression';
+import mongoSanitize from 'express-mongo-sanitize';
+import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import { config } from '@/shared/config/config.js';
+import { HTTP_STATUS } from '@/shared/constants/httpStatus.js';
+import { sendError } from '@/shared/utils/apiResponse.js';
 import routes from '@/routes/index.js';
 import { globalErrorHandler } from '@/shared/middlewares/globalError.js';
 import { notFoundHandler } from '@/shared/middlewares/error404.js';
@@ -21,10 +25,28 @@ app.use(
         methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     }),
 );
+app.use(
+    rateLimit({
+        windowMs: 15 * 60 * 1000,
+        limit: 100,
+        standardHeaders: true,
+        legacyHeaders: false,
+        handler: (_req, res) => {
+            sendError({
+                res,
+                message: 'Too many requests, please try again later.',
+                statusCode: HTTP_STATUS.TOO_MANY_REQUESTS,
+            });
+        },
+    }),
+);
 
 // Body parsing
 app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
+
+// Sanitize MongoDB queries
+app.use(mongoSanitize());
 
 // Performance
 app.use(compression());
