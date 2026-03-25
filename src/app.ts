@@ -1,5 +1,5 @@
 import express from 'express';
-import type { Application } from 'express';
+import type { Application, Request, Response, NextFunction } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import compression from 'compression';
@@ -31,7 +31,7 @@ app.use(
         limit: 100,
         standardHeaders: true,
         legacyHeaders: false,
-        handler: (_req, res) => {
+        handler: (_req: Request, res: Response) => {
             sendError({
                 res,
                 message: 'Too many requests, please try again later.',
@@ -46,7 +46,12 @@ app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 
 // Sanitize MongoDB queries
-app.use(mongoSanitize());
+app.use((req: Request, _res: Response, next: NextFunction) => {
+    if (req.body) {
+        req.body = mongoSanitize.sanitize(req.body) as unknown;
+    }
+    next();
+});
 
 // Performance
 app.use(compression());
