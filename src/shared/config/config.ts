@@ -9,6 +9,9 @@ const envSchema = z.object({
     SERVER_URL: z.string(),
     CORS_ORIGIN: z.string(),
     MONGO_URI: z.string(),
+    BREVO_API_KEY: z.string(),
+    BREVO_SENDER_EMAIL: z.email(),
+    BREVO_SENDER_NAME: z.string(),
 });
 
 const parsed = envSchema.safeParse(process.env);
@@ -32,5 +35,10 @@ export const config = {
     },
     db: {
         mongoUri: env.MONGO_URI,
+    },
+    email: {
+        brevoApiKey: env.BREVO_API_KEY,
+        senderEmail: env.BREVO_SENDER_EMAIL,
+        senderName: env.BREVO_SENDER_NAME,
     },
 } as const;
