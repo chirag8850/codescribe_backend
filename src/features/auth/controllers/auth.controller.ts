@@ -43,7 +43,7 @@ export class AuthController {
     };
 
     verifyEmail = async (req: Request, res: Response) => {
-        const { token } = req.params;
+        const { userId, token } = req.params;
 
         if (!token || typeof token !== 'string') {
             throw new ApiError({
@@ -52,7 +52,14 @@ export class AuthController {
             });
         }
 
-        await this.authService.verifyEmail(token);
+        if (!userId || typeof userId !== 'string') {
+            throw new ApiError({
+                message: 'User ID is missing in the URL',
+                statusCode: HTTP_STATUS.BAD_REQUEST,
+            });
+        }
+
+        await this.authService.verifyEmail(userId, token);
 
         return sendSuccess({
             res,

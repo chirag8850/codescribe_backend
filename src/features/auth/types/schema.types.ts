@@ -1,5 +1,6 @@
 import type { Document } from 'mongoose';
 import type { UserRole } from '@/shared/constants/userRoles.js';
+import mongoose from 'mongoose';
 
 export interface IUser extends Document {
     avatar?: string;
@@ -8,9 +9,13 @@ export interface IUser extends Document {
     email: string;
     password: string;
     isVerified: boolean;
-    verifyToken?: string;
-    verifyTokenExpiry?: Date;
     role: UserRole;
     createdAt: Date;
     updatedAt: Date;
+}
+
+export interface IEmailVerification extends Document {
+    userId: mongoose.Types.ObjectId;
+    token: string;
+    expiresAt: Date;
 }

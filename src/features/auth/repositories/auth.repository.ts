@@ -11,6 +11,10 @@ export class AuthRepository {
         return User.findOne({ username });
     }
 
+    async findUserById(id: mongoose.Types.ObjectId): Promise<IUser | null> {
+        return User.findById(id);
+    }
+
     async createUser(payload: Partial<IUser>): Promise<IUser> {
         return User.create(payload);
     }

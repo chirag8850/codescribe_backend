@@ -9,7 +9,7 @@ const authController = new AuthController();
 
 authRouter.post('/signup', validate(signupSchema), asyncHandler(authController.signup));
 authRouter.post('/login', asyncHandler(authController.login));
-authRouter.get('/verify-email/:token', asyncHandler(authController.verifyEmail));
+authRouter.get('/verify/:userId/:token', asyncHandler(authController.verifyEmail));
 authRouter.post(
     '/resend-verification',
     validate(resendVerifyEmailSchema),
