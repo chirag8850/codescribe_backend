@@ -1,6 +1,6 @@
 import type mongoose from 'mongoose';
 import User from '../models/user.model.js';
-import type { IUser } from '../types/auth.types.js';
+import type { IUser } from '../types/schema.types.js';
 
 export class AuthRepository {
     async findUserByEmail(email: string): Promise<IUser | null> {

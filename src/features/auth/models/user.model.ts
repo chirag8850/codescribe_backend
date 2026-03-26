@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 import bcrypt from 'bcrypt';
-import type { IUser } from '../types/auth.types.js';
+import type { IUser } from '../types/schema.types.js';
 import { USER_ROLES } from '@/shared/constants/userRoles.js';
 
 const SALT_ROUNDS = 10;
@@ -79,7 +79,7 @@ const userSchema = new Schema<IUser>(
     },
 );
 
-// Hash password before saving
+// Hashing password before saving
 userSchema.pre('save', async function () {
     if (!this.isModified('password')) {
         return;
