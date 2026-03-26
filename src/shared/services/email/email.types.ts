@@ -1,5 +1,6 @@
 export enum EmailType {
     WELCOME = 'WELCOME',
+    VERIFY_EMAIL = 'VERIFY_EMAIL',
 }
 
 export interface EmailRecipient {

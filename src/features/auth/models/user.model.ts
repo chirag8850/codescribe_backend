@@ -49,6 +49,14 @@ const userSchema = new Schema<IUser>(
             type: Boolean,
             default: false,
         },
+        verifyToken: {
+            type: String,
+            select: false,
+        },
+        verifyTokenExpiry: {
+            type: Date,
+            select: false,
+        },
         role: {
             type: String,
             enum: Object.values(USER_ROLES),

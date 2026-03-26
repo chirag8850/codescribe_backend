@@ -8,6 +8,8 @@ export interface IUser extends Document {
     email: string;
     password: string;
     isVerified: boolean;
+    verifyToken?: string;
+    verifyTokenExpiry?: Date;
     role: UserRole;
     createdAt: Date;
     updatedAt: Date;

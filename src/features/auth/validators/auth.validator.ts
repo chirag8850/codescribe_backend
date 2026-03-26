@@ -28,4 +28,13 @@ export const signupSchema = z.object({
         .max(64, 'Password must be at most 64 characters'),
 });
 
+export const resendVerifyEmailSchema = z.object({
+    email: z
+        .string({ error: 'Email is required' })
+        .trim()
+        .toLowerCase()
+        .pipe(z.email({ error: 'Invalid email address' })),
+});
+
 export type SignupInput = z.infer<typeof signupSchema>;
+export type ResendVerifyEmailInput = z.infer<typeof resendVerifyEmailSchema>;

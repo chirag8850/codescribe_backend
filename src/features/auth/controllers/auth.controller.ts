@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express';
 import { sendSuccess } from '@/shared/utils/apiResponse.js';
+import { ApiError } from '@/shared/utils/apiError.js';
 import { HTTP_STATUS } from '@/shared/constants/httpStatus.js';
 import { AuthService } from '../services/auth.service.js';
 import type { SignupPayload } from '../types/auth.types.js';
@@ -38,6 +39,37 @@ export class AuthController {
             message: 'User fetched',
             statusCode: HTTP_STATUS.OK,
             data: { user: { id: 1, name: 'Chirag Vaviya', email: 'chiragvaviya98@gmail.com' } },
+        });
+    };
+
+    verifyEmail = async (req: Request, res: Response) => {
+        const { token } = req.params;
+
+        if (!token || typeof token !== 'string') {
+            throw new ApiError({
+                message: 'Verification token is missing in the URL',
+                statusCode: HTTP_STATUS.BAD_REQUEST,
+            });
+        }
+
+        await this.authService.verifyEmail(token);
+
+        return sendSuccess({
+            res,
+            message: 'Email verified successfully!',
+            statusCode: HTTP_STATUS.OK,
+        });
+    };
+
+    resendVerificationEmail = async (req: Request, res: Response) => {
+        const { email } = req.body as { email: string };
+
+        await this.authService.resendVerificationEmail(email);
+
+        return sendSuccess({
+            res,
+            message: 'Verification email resent successfully. Please check your inbox.',
+            statusCode: HTTP_STATUS.OK,
         });
     };
 }

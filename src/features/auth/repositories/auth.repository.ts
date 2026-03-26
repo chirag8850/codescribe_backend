@@ -1,5 +1,6 @@
+import type mongoose from 'mongoose';
 import User from '../models/user.model.js';
-import type { IUser, SignupPayload } from '../types/auth.types.js';
+import type { IUser } from '../types/auth.types.js';
 
 export class AuthRepository {
     async findUserByEmail(email: string): Promise<IUser | null> {
@@ -10,7 +11,21 @@ export class AuthRepository {
         return User.findOne({ username });
     }
 
-    async createUser(payload: SignupPayload): Promise<IUser> {
+    async createUser(payload: Partial<IUser>): Promise<IUser> {
         return User.create(payload);
+    }
+
+    async findUserByVerifyToken(token: string): Promise<IUser | null> {
+        return User.findOne({
+            verifyToken: token,
+            verifyTokenExpiry: { $gt: new Date() },
+        });
+    }
+
+    async updateUser(
+        id: mongoose.Types.ObjectId,
+        updateData: Partial<IUser>,
+    ): Promise<IUser | null> {
+        return User.findByIdAndUpdate(id, updateData, { new: true });
     }
 }
