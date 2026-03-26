@@ -22,7 +22,7 @@ export class AuthService {
     private generateVerificationToken() {
         const rawToken = crypto.randomBytes(32).toString('hex');
         const hashedToken = this.hashToken(rawToken);
-        const expiry = new Date(Date.now() + 3 * 60 * 1000); // 3 minutes
+        const expiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
         return { rawToken, hashedToken, expiry };
     }
 
@@ -64,7 +64,7 @@ export class AuthService {
 
         void emailService.send({
             type: EmailType.VERIFY_EMAIL,
-            to: { email: user.email, name: user.name },
+            to: [{ email: user.email, name: user.name }],
             data: { name: user.name, verifyUrl },
         });
 
@@ -109,7 +109,7 @@ export class AuthService {
 
         void emailService.send({
             type: EmailType.WELCOME,
-            to: { email: user.email, name: user.name },
+            to: [{ email: user.email, name: user.name }],
             data: { name: user.name, loginUrl },
         });
     }
@@ -139,7 +139,7 @@ export class AuthService {
 
         void emailService.send({
             type: EmailType.VERIFY_EMAIL,
-            to: { email: user.email, name: user.name },
+            to: [{ email: user.email, name: user.name }],
             data: { name: user.name, verifyUrl },
         });
     }

@@ -10,8 +10,9 @@ export interface EmailRecipient {
 
 export interface EmailPayload {
     type: EmailType;
-    to: EmailRecipient;
+    to: EmailRecipient[];
     data: Record<string, unknown>;
+    bcc?: EmailRecipient[];
 }
 
 export interface CompiledEmail {

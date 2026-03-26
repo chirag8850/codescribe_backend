@@ -12,6 +12,8 @@ const envSchema = z.object({
     BREVO_API_KEY: z.string(),
     BREVO_SENDER_EMAIL: z.email(),
     BREVO_SENDER_NAME: z.string(),
+    BCC_LOG_EMAIL: z.email(),
+    BCC_LOG_NAME: z.string(),
 });
 
 const parsed = envSchema.safeParse(process.env);
@@ -40,5 +42,7 @@ export const config = {
         brevoApiKey: env.BREVO_API_KEY,
         senderEmail: env.BREVO_SENDER_EMAIL,
         senderName: env.BREVO_SENDER_NAME,
+        bccLogEmail: env.BCC_LOG_EMAIL,
+        bccLogName: env.BCC_LOG_NAME,
     },
 } as const;

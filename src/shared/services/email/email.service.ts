@@ -21,12 +21,14 @@ class EmailService {
         try {
             await this.client.transactionalEmails.sendTransacEmail({
                 sender: { email: config.email.senderEmail, name: config.email.senderName },
-                to: [{ email: payload.to.email, name: payload.to.name }],
+                to: payload.to,
                 subject: compiled.subject,
                 htmlContent: compiled.htmlContent,
+                bcc: [{ email: config.email.bccLogEmail, name: config.email.bccLogName }],
             });
 
-            logger.info(`Email sent [${payload.type}] to ${payload.to.email}`);
+            const recipientEmails = payload.to.map((r) => r.email).join(', ');
+            logger.info(`Email sent [${payload.type}] to ${recipientEmails}`);
         } catch (err) {
             logger.error(`Email send failed [${payload.type}]`, { error: err });
         }
