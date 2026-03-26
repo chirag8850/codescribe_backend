@@ -15,8 +15,10 @@ export const signupSchema = z.object({
         .string({ error: 'Username is required' })
         .trim()
         .min(3, 'Username must be at least 3 characters')
-        .max(30, 'Username must be at most 30 characters')
-        .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
+        .max(20, 'Username must be at most 20 characters')
+        .regex(/^[a-zA-Z0-9]+$/, 'Username can only contain letters and numbers')
+        .regex(/(?=.*[a-zA-Z])/, 'Username must contain at least one letter')
+        .toLowerCase(),
     email: z
         .string({ error: 'Email is required' })
         .trim()
@@ -36,5 +38,17 @@ export const resendVerifyEmailSchema = z.object({
         .pipe(z.email({ error: 'Invalid email address' })),
 });
 
+export const checkUsernameSchema = z.object({
+    username: z
+        .string({ error: 'Username is required' })
+        .trim()
+        .min(3, 'Username must be at least 3 characters')
+        .max(20, 'Username must be at most 20 characters')
+        .regex(/^[a-zA-Z0-9]+$/, 'Username can only contain letters and numbers')
+        .regex(/(?=.*[a-zA-Z])/, 'Username must contain at least one letter')
+        .toLowerCase(),
+});
+
 export type SignupInput = z.infer<typeof signupSchema>;
 export type ResendVerifyEmailInput = z.infer<typeof resendVerifyEmailSchema>;
+export type CheckUsernameInput = z.infer<typeof checkUsernameSchema>;

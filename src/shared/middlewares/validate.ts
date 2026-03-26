@@ -4,9 +4,9 @@ import { ApiError } from '@/shared/utils/apiError.js';
 import { HTTP_STATUS } from '@/shared/constants/httpStatus.js';
 
 export const validate =
-    (schema: z.ZodType) =>
+    (schema: z.ZodType, source: 'body' | 'query' | 'params' = 'body') =>
     (req: Request, _res: Response, next: NextFunction): void => {
-        const result = schema.safeParse(req.body);
+        const result = schema.safeParse(req[source]);
 
         if (!result.success) {
             const errors = result.error.issues.map((issue) => ({
@@ -21,6 +21,12 @@ export const validate =
             });
         }
 
-        req.body = result.data as Record<string, unknown>;
+        if (source === 'body') {
+            req.body = result.data as Record<string, unknown>;
+        } else if (source === 'query') {
+            Object.assign(req.query, result.data as Record<string, unknown>);
+        } else if (source === 'params') {
+            Object.assign(req.params, result.data as Record<string, unknown>);
+        }
         next();
     };

@@ -79,4 +79,24 @@ export class AuthController {
             statusCode: HTTP_STATUS.OK,
         });
     };
+
+    checkUsername = async (req: Request, res: Response) => {
+        const { username } = req.query as { username: string };
+
+        if (!username || typeof username !== 'string') {
+            throw new ApiError({
+                message: 'Username is required',
+                statusCode: HTTP_STATUS.BAD_REQUEST,
+            });
+        }
+
+        const isAvailable = await this.authService.checkUsernameAvailability(username);
+
+        return sendSuccess({
+            res,
+            message: isAvailable ? 'Username is available' : 'Username is not available',
+            statusCode: HTTP_STATUS.OK,
+            data: { isAvailable },
+        });
+    };
 }

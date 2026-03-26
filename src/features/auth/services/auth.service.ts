@@ -143,4 +143,9 @@ export class AuthService {
             data: { name: user.name, verifyUrl },
         });
     }
+
+    async checkUsernameAvailability(username: string): Promise<boolean> {
+        const user = await this.authRepository.findUserByUsername(username);
+        return !user;
+    }
 }
