@@ -62,7 +62,7 @@ export class AuthService {
         // Send Email
         const verifyUrl = `${config.server.serverUrl}/api/v1/auth/verify/${user._id.toString()}/${rawToken}`;
 
-        await emailService.send({
+        void emailService.send({
             type: EmailType.VERIFY_EMAIL,
             to: { email: user.email, name: user.name },
             data: { name: user.name, verifyUrl },
