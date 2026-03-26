@@ -107,7 +107,7 @@ export class AuthService {
 
         const loginUrl = `${config.server.serverUrl}/login`;
 
-        await emailService.send({
+        void emailService.send({
             type: EmailType.WELCOME,
             to: { email: user.email, name: user.name },
             data: { name: user.name, loginUrl },
@@ -137,7 +137,7 @@ export class AuthService {
 
         const verifyUrl = `${config.server.serverUrl}/api/v1/auth/verify/${user._id.toString()}/${rawToken}`;
 
-        await emailService.send({
+        void emailService.send({
             type: EmailType.VERIFY_EMAIL,
             to: { email: user.email, name: user.name },
             data: { name: user.name, verifyUrl },
