@@ -14,6 +14,8 @@ const envSchema = z.object({
     BREVO_SENDER_NAME: z.string(),
     BCC_LOG_EMAIL: z.email(),
     BCC_LOG_NAME: z.string(),
+    JWT_ACCESS_SECRET_KEY: z.string(),
+    JWT_REFRESH_SECRET_KEY: z.string(),
 });
 
 const parsed = envSchema.safeParse(process.env);
@@ -44,5 +46,11 @@ export const config = {
         senderName: env.BREVO_SENDER_NAME,
         bccLogEmail: env.BCC_LOG_EMAIL,
         bccLogName: env.BCC_LOG_NAME,
+    },
+    jwt: {
+        accessSecret: env.JWT_ACCESS_SECRET_KEY,
+        refreshSecret: env.JWT_REFRESH_SECRET_KEY,
+        accessTokenExpiry: '15m',
+        refreshTokenExpiry: '7d',
     },
 } as const;

@@ -26,10 +26,7 @@ const userSchema = new Schema<IUser>(
             trim: true,
             minlength: [3, 'Username must be at least 3 characters long'],
             maxlength: [30, 'Username cannot exceed 30 characters'],
-            match: [
-                /^[a-zA-Z0-9_]+$/,
-                'Username can only contain letters, numbers, and underscores',
-            ],
+            match: [/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'],
         },
         email: {
             type: String,
@@ -43,6 +40,11 @@ const userSchema = new Schema<IUser>(
             type: String,
             required: [true, 'Password is required'],
             minlength: [8, 'Password must be at least 8 characters long'],
+            select: false,
+        },
+        refreshToken: {
+            type: String,
+            default: null,
             select: false,
         },
         isVerified: {
@@ -79,6 +81,10 @@ userSchema.pre('save', async function () {
 
     this.password = await bcrypt.hash(this.password, SALT_ROUNDS);
 });
+
+userSchema.methods.comparePassword = async function (password: string): Promise<boolean> {
+    return bcrypt.compare(password, this.password as string);
+};
 
 const User = model<IUser>('User', userSchema);
 

@@ -1,0 +1,5 @@
+{
+    "permissions": {
+        "allow": ["Bash(npm view:*)", "WebFetch(domain:www.npmjs.com)", "WebFetch(domain:hectorm.github.io)", "Bash(npx tsc:*)", "Bash(npx eslint:*)"]
+    }
+}

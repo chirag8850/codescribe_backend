@@ -5,16 +5,10 @@ import { config } from '@/shared/config/config.js';
 import type { ApiErrorResponse } from '@/shared/types/response.type.js';
 import logger from '@/shared/utils/logger.js';
 
-export const globalErrorHandler = (
-    err: Error,
-    req: Request,
-    res: Response,
-    _next: NextFunction,
-): void => {
+export const globalErrorHandler = (err: Error, req: Request, res: Response, _next: NextFunction): void => {
     const statusCode = err instanceof ApiError ? err.statusCode : HTTP_STATUS.INTERNAL_SERVER_ERROR;
 
-    const message =
-        err instanceof ApiError || config.server.isDev ? err.message : 'Internal Server Error';
+    const message = err instanceof ApiError || config.server.isDev ? err.message : 'Internal Server Error';
 
     const response: ApiErrorResponse = {
         success: false,

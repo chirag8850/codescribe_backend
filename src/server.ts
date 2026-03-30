@@ -9,9 +9,7 @@ const startServer = async (): Promise<void> => {
     await connectDB();
 
     const server = app.listen(PORT, () => {
-        logger.info(
-            `Server is running on port ${PORT} in ${config.server.isDev ? 'development' : 'production'} mode`,
-        );
+        logger.info(`Server is running on port ${PORT} in ${config.server.isDev ? 'development' : 'production'} mode`);
     });
 
     // Graceful shutdown

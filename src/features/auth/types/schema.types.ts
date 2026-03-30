@@ -8,13 +8,27 @@ export interface IUser extends Document {
     username: string;
     email: string;
     password: string;
+    refreshToken: string | null;
     isVerified: boolean;
     role: UserRole;
     createdAt: Date;
     updatedAt: Date;
+    comparePassword(password: string): Promise<boolean>;
 }
 
 export interface IEmailVerification extends Document {
+    userId: mongoose.Types.ObjectId;
+    token: string;
+    expiresAt: Date;
+}
+
+export interface ILoginOtp extends Document {
+    userId: mongoose.Types.ObjectId;
+    otp: string;
+    expiresAt: Date;
+}
+
+export interface IPasswordReset extends Document {
     userId: mongoose.Types.ObjectId;
     token: string;
     expiresAt: Date;

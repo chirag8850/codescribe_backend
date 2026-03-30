@@ -1,5 +1,6 @@
 import express from 'express';
 import type { Application, Request, Response, NextFunction } from 'express';
+import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import cors from 'cors';
 import compression from 'compression';
@@ -40,6 +41,9 @@ app.use(
         },
     }),
 );
+
+// Cookie parsing
+app.use(cookieParser());
 
 // Body parsing
 app.use(express.json({ limit: '16kb' }));

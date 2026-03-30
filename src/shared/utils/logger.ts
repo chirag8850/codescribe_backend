@@ -12,22 +12,13 @@ const logFormat = printf(({ level, message, timestamp: ts, stack }) => {
 const buildDevLogger = () =>
     winston.createLogger({
         level: 'debug',
-        format: combine(
-            colorize({ all: true }),
-            timestamp({ format: 'HH:mm:ss' }),
-            errors({ stack: true }),
-            logFormat,
-        ),
+        format: combine(colorize({ all: true }), timestamp({ format: 'HH:mm:ss' }), errors({ stack: true }), logFormat),
         transports: [new winston.transports.Console()],
     });
 
 const buildProdLogger = () => {
     const consoleTransport = new winston.transports.Console({
-        format: combine(
-            timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-            errors({ stack: true }),
-            logFormat,
-        ),
+        format: combine(timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), errors({ stack: true }), logFormat),
     });
 
     const mongoTransport = new winston.transports.MongoDB({

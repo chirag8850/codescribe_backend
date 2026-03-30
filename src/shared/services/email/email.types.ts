@@ -1,6 +1,8 @@
 export enum EmailType {
     WELCOME = 'WELCOME',
     VERIFY_EMAIL = 'VERIFY_EMAIL',
+    LOGIN_OTP = 'LOGIN_OTP',
+    RESET_PASSWORD = 'RESET_PASSWORD',
 }
 
 export interface EmailRecipient {
