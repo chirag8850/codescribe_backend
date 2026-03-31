@@ -269,7 +269,7 @@ export class AuthService {
         const user = await this.authRepository.findUserByEmail(email);
 
         if (!user) {
-            // Don't reveal whether email exists — always return success
+            // returning not revealing whether email exists or not
             return;
         }
 
